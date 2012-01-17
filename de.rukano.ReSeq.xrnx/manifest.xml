@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RenoiseScriptingTool doc_version="0">
+  <ApiVersion>3</ApiVersion>
+  <AutoUpgraded>true</AutoUpgraded>
+  <Id>de.rukano.reseq</Id>
+  <Version>0.1</Version>
+  <Author>Juan A. Romero | rukano (rukano@gmail.com)</Author>
+  <Name>ReSeq</Name>
+  <Category>Scripting Tool</Category>
+  <Description>Minimal interpreter for creating patterns. Very experimental and under heavy developement. Use at your own risk</Description>
+  <Homepage>http://rukano.de</Homepage>
+</RenoiseScriptingTool>
