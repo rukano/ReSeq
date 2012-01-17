@@ -8,7 +8,15 @@
 --                          |_|
 
 _AUTO_RELOAD_DEBUG = true 
--- require "ReSeq"
+
+-- TODO: Fix Place
+-- TODO: generate notes!
+
+-- TODO: make a function definition window!
+-- TODO: execute and globalize user defined functions (from here)!
+
+local interpret = require "Interpreter"
+local Patterns = require "Patterns"
 
 local vb
 local app
@@ -19,7 +27,7 @@ local width = 600
 
 local selected_track = 1
 local selected_parameter = 1
-local selected_pattern_type = 1
+local selected_pattern_type = "Pseq"
 local selected_command = "note_value"
 
 local possible_parameters = {"Note", "Instrument", "Volume", "Paning", "Delay"}
@@ -163,10 +171,14 @@ end
 -- execute
 function execute ()
    local code = gui.text_field.text
-   print('track:', selected_track)
-   print('parameter:', selected_parameter)
-   print('pattern:', selected_pattern_type)
-   print('code:', code)
+   local num = 64
+   local pattern = interpret(code, selected_command, selected_pattern_type, num)
+   print(selected_pattern_type)
+   for i=1, num do
+      local next = pattern()
+      print(next())
+   end
+
    -- TODO: save code on execute
 end
 
@@ -186,7 +198,6 @@ end
 function choose_pattern_type ()
    local index = gui.pattern_type_chooser.value
    selected_pattern_type = possible_pattern_types[index]
-   print(selected_pattern_type)
 end
 
 
