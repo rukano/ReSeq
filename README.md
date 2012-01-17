@@ -9,6 +9,10 @@ ______     _____
                          |_|
 </pre>
 
+
+ReSeq
+=====
+
 A tool for algorithmic sequence generation and live coding in Renoise
 ---------------------------------------------------------------------
 
@@ -20,8 +24,10 @@ DISCLAIMER
 ReSeq is under **HEAVY** developement. Everything can change and it's not very usable right now. Use at your own risk. I'm happy about recommendations, help, hints and suggestions you can give me. "You can't programm", "Nice tool, but not usable", "I rocked the club yesterday with your tool", anything is acceptable, I'm open for critique.
 
 Current State
-=============
+-------------
 
 Unusable. Code won't be executed
+
 Building the GUI. Kind of working now.
-Pattern library not yes bound.
+
+Pattern library not yet bound.
