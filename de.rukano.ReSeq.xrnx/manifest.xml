@@ -2,7 +2,7 @@
 <RenoiseScriptingTool doc_version="0">
   <ApiVersion>3</ApiVersion>
   <AutoUpgraded>true</AutoUpgraded>
-  <Id>de.rukano.reseq</Id>
+  <Id>de.rukano.ReSeq</Id>
   <Version>0.1</Version>
   <Author>Juan A. Romero | rukano (rukano@gmail.com)</Author>
   <Name>ReSeq</Name>
