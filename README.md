@@ -38,22 +38,22 @@ HELP
 Commands
 --------
 
-* Note: sets the value of the note column
-* Instrument: sets the value of the instrument column
-* Volume: sets the value of the volume column
-* Paning: sets the value of the paning column
-* Delay: sets the value of the delay column
+* __Note__: sets the value of the note column
+* __Instrument__: sets the value of the instrument column
+* __Volume__: sets the value of the volume column
+* __Paning__: sets the value of the paning column
+* __Delay__: sets the value of the delay column
 
-(in the future maybe fx columns will be covered)
+_(in the future maybe fx columns will be covered)_
 
 Patterns
 --------
 
-* Sequence: the slots will be used sequentially (with looping)
-* Interlace: <not yet working> the slots will be used sequentially and subtables will be handled sequentially too (for every iteration)
-* Random: the slots will be used random, there are no checks for repetition, just random.
-* Shuffle: the slots order is randomized for every new loop, this ensures all slot items will be used, and on each loop the order will be different
-* (more to come?)
+* __Sequence__: the slots will be used sequentially (with looping)
+* __Interlace__: <not yet working> the slots will be used sequentially and subtables will be handled sequentially too (for every iteration)
+* __Random__: the slots will be used random, there are no checks for repetition, just random.
+* __Shuffle__: the slots order is randomized for every new loop, this ensures all slot items will be used, and on each loop the order will be different
+_(more to come?)_
 
 Syntax
 ------
@@ -61,31 +61,31 @@ Syntax
 * Every new line represents a new slot
 * You can write expressions/formulae on every line
 * Some variables will be passed to each slot:
-	* i = The current line (from 0 to number of lines - 1)
-	* v = The value of the current line
-	* n = The total number of lines
-	* _ = Pause/Empty value
-	* <TODO> x = OFF command (only for notes)
+	* **i** = The current line (from 0 to number of lines - 1)
+	* **v** = The value of the current line
+	* **n** = The total number of lines
+	* **_** = Pause/Empty value
+	* __TODO:__ x = OFF command (only for notes)
 * Some functions are already defined and can be used:
-	* r(min,max) = random number between min and max
-	* r{a,b,c...} = random items from the list
-	* sin(), cos(), tan(), etc (the whole lua math library!)
+	* **r(min,max)** = random number between min and max
+	* **r{a,b,c...}** = random items from the list
+	* **sin()**, **cos()**, **tan()**, **etc** (the whole lua math library!)
 * Other commands:
-	* cond ? true : false (if statements as ternary operator) NOTE: be careful with ifs, use only one per slot, haven't figured out how to chain them.
-	* expr!x repeats the expr x times in the sequence
-	* <TODO> @x "expire" sets the expression for a x index in the table.
-	* <TODO> *x* from here...
-* <TODO> You can define your own functions in pure Lua and use them in your slots.
+	* _cond_ **?** _true_ **:** _false_ (if statements as ternary operator) NOTE: be careful with ifs, use only one per slot, haven't figured out how to chain them.
+	* _expr_ **!** _x_ repeats the expr x times in the sequence
+	* __TODO__ **@x** "expr" sets the expression for a x index in the table.
+	* __TODO__ *x* from here replace the pattern
+* __TODO__ You can define your own functions in pure Lua and use them in your slots.
 
 
 Examples
 --------
-* a note: 60
-* a function: sin(i) * 3 + 60
-* a control statement: i>60 ? 80 : 121
-* an operation on the current value: v + 12
-* a repetition: 121!3
-* random numbers: r(60,62)
-* random items: r{60,80,100,121}
-* a pause: _
-* line from 40 to 60: floor((i/n)*20)+40
+* a note: `60`
+* a function: `sin(i) * 3 + 60`
+* a control statement: `i>60 ? 80 : 121`
+* an operation on the current value: `v + 12`
+* a repetition: `121!3`
+* random numbers: `r(60,62)`
+* random items: `r{60,80,100,121}`
+* a pause: `_`
+* interpolation from 40 to 60: `floor((i/n)*20)+40`
