@@ -171,13 +171,20 @@ end
 -- execute
 function execute ()
    local code = gui.text_field.text
-   local num = 64
-   local pattern = interpret(code, selected_command, selected_pattern_type, num)
-   print(selected_pattern_type)
-   for i=1, num do
-      local next = pattern()
-      print(next())
+   local lines = song.selected_pattern.tracks[selected_track].lines
+   local current = get_command_values(lines)
+   local seq = interpret(code, selected_command, selected_pattern_type, current)
+
+   for i,n in ipairs(seq) do
+      -- TODO: here, chord expansions
+      if selected_command == "note_value" then
+	 n = math.max(math.min(n, 121), 0)
+      else
+	 n = math.max(math.min(n, 255), 0)
+      end
+      lines[i].note_columns[1][selected_command] = n
    end
+
 
    -- TODO: save code on execute
 end
@@ -200,6 +207,15 @@ function choose_pattern_type ()
    selected_pattern_type = possible_pattern_types[index]
 end
 
+function get_command_values (lines)
+   local t = {}
+   for i=1, #lines do
+       -- TODO: here chord expansions
+      local value = lines[i].note_columns[1][selected_command]
+      table.insert(t, value)
+   end
+   return t
+end
 
 --[[
 -- old execute code

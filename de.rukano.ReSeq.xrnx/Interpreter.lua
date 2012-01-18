@@ -92,6 +92,8 @@ function make_expression (str)
    local expr = str
    local with_if = has_if(expr)
 
+   -- TODO: set direct order here!
+
    -- expand ternary operation
    if with_if then expr = make_if(expr) end
 
@@ -100,11 +102,7 @@ function make_expression (str)
 
    if has_repetition(expr) then
       expr = make_repetition_table(expr)
-      if with_if then
-	 expr[1] = make_function(expr[1], true)
-      else
-	 expr[1] = make_function(expr[1], false)	 
-      end
+      expr[1] = make_function(expr[1], with_if)
    else
       expr = make_function(expr, with_if)
    end
@@ -113,12 +111,12 @@ end
 
 
 function make_function (str, with_if)
-   local func = ""
-   if with_if then
-      func = "function (i,v,n) %s end"
-   else
-      func = "function (i,v,n) return %s end"
-   end
+   local func = "function (i,v,n) "
+      -- .." if v == "
+      -- .. EMPTY_VALUES[command]
+      -- .. " then return v end "
+   if with_if then func = func .. "%s" else func = func .. "return %s" end
+   func = func .. " end"
    func = func:format(str)
    return dostring(func)
 end
@@ -147,18 +145,16 @@ function make_if (str)
    return expr
 end
 
-function set_direct (str)
-   return str
-end
-
 function process_code (str)
    local t = {}
+   local o = {}
    local slots = strsplit(str, "\n")
    for i,s in ipairs(slots) do
+      -- set direct settings!
       table.insert(t, make_expression(s))
    end
    inject_repetitions(t)
-   return t
+   return t, o
 end
 
 function inject_repetitions (o)
@@ -175,16 +171,49 @@ function inject_repetitions (o)
    return t
 end
 
-function interpret_code (str, cmd, pattern, num)
+function interpret_code (str, cmd, pattern, old)
    command = cmd or "note_value"
+   local temp = {}
+   local new = {}
    local pattern = pattern or "Pseq"
-   local num = num or 64
+   local n = #old
 
-   local slots = process_code(str)
-   slots = inject_repetitions(slots)
-   
+   local slots, direct = process_code(str)
    local seq = Patterns[pattern](slots)
-   return seq
+  
+   -- flatten and execute
+   for i=1, n do
+      local next = seq()
+      if type(next) == "table" then
+	 for j=1, next[2] do
+	    table.insert(temp, next[1])
+	 end
+      else
+	 table.insert(temp, next)	 
+      end
+   end
+
+   -- generate values and execute direct orders
+   for i,v in ipairs(old) do
+      local expr = temp[i]
+      table.insert(new, expr(i-1, v, n))
+   end
+
+   return new
 end
+
+-- local dummy = [==[60
+-- 4?0:1
+-- 80!4
+-- _
+-- i
+-- v
+-- n]==]
+
+-- local a = {}
+-- for i=1, 64 do table.insert(a, math.random(4)) end
+
+
+-- rprint(interpret_code(dummy, "note_value", "Pseq", a))
 
 return interpret_code
