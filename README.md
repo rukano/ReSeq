@@ -65,7 +65,7 @@ Syntax
 	* **v** = The value of the current line
 	* **n** = The total number of lines
 	* **_** = Pause/Empty value
-	* __TODO:__ x = OFF command (only for notes)
+	* **x** = OFF command (only for notes) __TODO!__ 
 * Some functions are already defined and can be used:
 	* **r(min,max)** = random number between min and max
 	* **r{a,b,c...}** = random items from the list
@@ -74,7 +74,7 @@ Syntax
 	* _cond_ **?** _true_ **:** _false_ (if statements as ternary operator) NOTE: be careful with ifs, use only one per slot, haven't figured out how to chain them.
 	* _expr_ **!** _x_ repeats the expr x times in the sequence
 	* __TODO__ **@x** "expr" sets the expression for a x index in the table.
-	* __TODO__ *x* from here replace the pattern
+	* __TODO__ **~x~** from here replace the pattern
 * __TODO__ You can define your own functions in pure Lua and use them in your slots.
 
 
@@ -87,5 +87,5 @@ Examples
 * a repetition: `121!3`
 * random numbers: `r(60,62)`
 * random items: `r{60,80,100,121}`
-* a pause: `_`
+* a pause or empty value: `_`
 * interpolation from 40 to 60: `floor((i/n)*20)+40`
